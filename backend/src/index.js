@@ -101,11 +101,11 @@ server.listen(PORT, () => {
   console.log(`
     ╔════════════════════════════════════════════════╗
     ║                                                ║
-    ║    KYSB Fitness Center Management System      ║
-    ║    Backend Server Started Successfully        ║
+    ║   AKYSB Fitness Center Management System      ║
+    ║   Backend Server Started Successfully        ║
     ║                                                ║
-    ║    Server running on: http://localhost:${PORT}   ║
-    ║    Environment: ${config.app.env}                    ║
+    ║   Server running on: http://localhost:${PORT}   ║
+    ║   Environment: ${config.app.env}                    ║
     ║                                                ║
     ╚════════════════════════════════════════════════╝
   `);

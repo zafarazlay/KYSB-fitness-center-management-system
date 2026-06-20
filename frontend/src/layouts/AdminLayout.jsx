@@ -33,7 +33,7 @@ const AdminLayout = ({ children }) => {
         {/* Logo */}
         <div className="p-6 border-b border-gray-800">
           {sidebarOpen ? (
-            <h1 className="text-xl font-bold">KYSB Fitness</h1>
+            <h1 className="text-xl font-bold">AKYSB Fitness</h1>
           ) : (
             <div className="text-2xl">💪</div>
           )}
@@ -77,7 +77,7 @@ const AdminLayout = ({ children }) => {
           </button>
           <div className="text-right">
             <p className="text-sm text-gray-600">Admin Dashboard</p>
-            <p className="text-lg font-semibold text-gray-900">KYSB Fitness Center</p>
+            <p className="text-lg font-semibold text-gray-900">AKYSB Fitness Center</p>
           </div>
         </div>
 

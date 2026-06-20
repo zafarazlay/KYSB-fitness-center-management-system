@@ -58,7 +58,7 @@ const RegisterPage = () => {
       <div className="w-full max-w-md">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800">KYSB Fitness</h1>
+              <h1 className="text-3xl font-bold text-gray-800">AKYSB Fitness</h1>
             <p className="text-gray-600 mt-2">Create Your Account</p>
           </div>
 
