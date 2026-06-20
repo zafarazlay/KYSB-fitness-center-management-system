@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { supabase } from '../services/supabase.js';
+import * as authService from '../services/authService.js';
 
 /**
- * Auth Store with Supabase Integration
- * Manages authentication state using Supabase Auth
+ * Auth Store
+ * Manages authentication state using our backend API
  */
 export const useAuthStore = create(
   persist(
@@ -20,34 +20,16 @@ export const useAuthStore = create(
       login: async (email, password) => {
         set({ isLoading: true, error: null });
         try {
-          const { data, error } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-          });
-
-          if (error) throw error;
-
-          // Fetch member profile if user is a member
-          let profile = null;
-          const { data: memberData } = await supabase
-            .from('members')
-            .select('*')
-            .eq('auth_user_id', data.user.id)
-            .single();
-
-          if (memberData) {
-            profile = memberData;
-          }
-
+          const data = await authService.authService.login(email, password);
           set({
             user: data.user,
-            profile,
-            userRole: data.user.user_metadata?.role || 'member',
+            profile: data.profile || null,
+            userRole: data.user?.role || 'member',
             isAuthenticated: true,
             isLoading: false,
           });
-
-          return { user: data.user, profile };
+          localStorage.setItem('token', data.token);
+          return data;
         } catch (error) {
           set({
             error: error.message || 'Login failed',
@@ -58,44 +40,26 @@ export const useAuthStore = create(
       },
 
       // Logout
-      logout: async () => {
-        set({ isLoading: true, error: null });
-        try {
-          await supabase.auth.signOut();
-          set({
-            user: null,
-            profile: null,
-            isAuthenticated: false,
-            isLoading: false,
-            userRole: null,
-          });
-        } catch (error) {
-          set({
-            error: error.message || 'Logout failed',
-            isLoading: false,
-          });
-          throw error;
-        }
+      logout: () => {
+        authService.authService.logout();
+        set({
+          user: null,
+          profile: null,
+          isAuthenticated: false,
+          isLoading: false,
+          userRole: null,
+        });
       },
 
       // Update User Profile
       updateProfile: async (updates) => {
         set({ isLoading: true, error: null });
         try {
-          const { data, error } = await supabase
-            .from('members')
-            .update(updates)
-            .eq('auth_user_id', get().user.id)
-            .select()
-            .single();
-
-          if (error) throw error;
-
+          const data = await authService.authService.updateUser(updates);
           set({
             profile: data,
             isLoading: false,
           });
-
           return data;
         } catch (error) {
           set({
@@ -106,35 +70,17 @@ export const useAuthStore = create(
         }
       },
 
-      // Initialize from Supabase session
+      // Initialize from token
       initializeAuth: async () => {
         set({ isLoading: true });
         try {
-          const { data, error } = await supabase.auth.getSession();
-
-          if (error) throw error;
-
-          if (data.session) {
-            const user = data.session.user;
-
-            // Fetch member profile if user is a member
-            let profile = null;
-            if (user.user_metadata?.role === 'member') {
-              const { data: memberData } = await supabase
-                .from('members')
-                .select('*')
-                .eq('auth_user_id', user.id)
-                .single();
-
-              if (memberData) {
-                profile = memberData;
-              }
-            }
-
+          const token = localStorage.getItem('token');
+          if (token) {
+            const data = await authService.authService.getCurrentUser();
             set({
-              user,
-              profile,
-              userRole: user.user_metadata?.role || 'member',
+              user: data.user,
+              profile: data.profile || null,
+              userRole: data.user?.role || 'member',
               isAuthenticated: true,
               isLoading: false,
             });
@@ -148,6 +94,7 @@ export const useAuthStore = create(
           }
         } catch (error) {
           console.error('Auth initialization error:', error);
+          localStorage.removeItem('token');
           set({
             isLoading: false,
             error: error.message,
@@ -157,22 +104,7 @@ export const useAuthStore = create(
 
       // Subscribe to auth changes
       subscribeToAuthChanges: () => {
-        supabase.auth.onAuthStateChange(async (event, session) => {
-          if (session) {
-            set({
-              user: session.user,
-              userRole: session.user.user_metadata?.role || 'member',
-              isAuthenticated: true,
-            });
-          } else {
-            set({
-              user: null,
-              profile: null,
-              isAuthenticated: false,
-              userRole: null,
-            });
-          }
-        });
+        // Can be implemented for real-time auth updates
       },
 
       // Clear Error

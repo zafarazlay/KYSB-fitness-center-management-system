@@ -9,6 +9,7 @@ CREATE TYPE payment_status AS ENUM ('pending', 'approved', 'rejected', 'late');
 CREATE TYPE payment_method AS ENUM ('cash', 'bank_transfer', 'easypaisa', 'jazzcash', 'online');
 CREATE TYPE transaction_type AS ENUM ('credit', 'debit');
 CREATE TYPE notification_type AS ENUM ('payment', 'announcement', 'system', 'reminder');
+CREATE TYPE membership_tier AS ENUM ('kids', 'adults', 'seniors', 'custom');
 
 -- ===========================
 -- Users Table
@@ -40,6 +41,7 @@ CREATE TABLE members (
   address TEXT,
   photo_url VARCHAR(255),
   join_date DATE NOT NULL,
+  membership_tier_id INTEGER,
   membership_plan VARCHAR(100),
   monthly_fee DECIMAL(10, 2) NOT NULL DEFAULT 0,
   admission_fee DECIMAL(10, 2),
@@ -47,8 +49,28 @@ CREATE TABLE members (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (membership_tier_id) REFERENCES membership_tiers(id),
   INDEX idx_member_id (member_id),
-  INDEX idx_join_date (join_date)
+  INDEX idx_join_date (join_date),
+  INDEX idx_membership_tier_id (membership_tier_id)
+);
+
+-- ===========================
+-- Membership Tiers Table
+-- ===========================
+CREATE TABLE membership_tiers (
+  id SERIAL PRIMARY KEY,
+  tier_name membership_tier NOT NULL UNIQUE,
+  display_name VARCHAR(100) NOT NULL,
+  description TEXT,
+  gym_fee DECIMAL(10, 2) DEFAULT 0,
+  indoor_games_fee DECIMAL(10, 2) DEFAULT 0,
+  combined_fee DECIMAL(10, 2) DEFAULT 0,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_tier_name (tier_name),
+  INDEX idx_is_active (is_active)
 );
 
 -- ===========================

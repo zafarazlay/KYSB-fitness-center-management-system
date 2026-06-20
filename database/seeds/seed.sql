@@ -2,6 +2,14 @@
 -- Seed Data for KYSB Fitness Center
 -- ===========================
 
+-- Insert Membership Tiers
+INSERT INTO membership_tiers (tier_name, display_name, description, gym_fee, indoor_games_fee, combined_fee, is_active)
+VALUES 
+  ('kids', 'Kids Package', 'Indoor games only for children', 0, 500, 500, TRUE),
+  ('adults', 'Adults Package', 'Gym access and indoor games for adults', 1000, 500, 1500, TRUE),
+  ('seniors', 'Seniors Package', 'Complete access - Gym and indoor games for seniors', 1000, 500, 1500, TRUE),
+  ('custom', 'Custom Package', 'Custom membership plan', 0, 0, 0, TRUE);
+
 -- Insert Payment Settings
 INSERT INTO payment_settings (due_date_day, grace_period_days, late_fee_amount, late_fee_percentage, reminder_frequency)
 VALUES (5, 5, 500, 5, 'daily');
@@ -23,11 +31,11 @@ VALUES
   ('member3@example.com', '$2a$10$abcdefghijklmnopqrstuvwxyz', 'Hassan', 'Malik', 'member', '03004567890', 'active');
 
 -- Insert Sample Members
-INSERT INTO members (user_id, member_id, cnic, address, join_date, membership_plan, monthly_fee, admission_fee, notes)
+INSERT INTO members (user_id, member_id, cnic, address, join_date, membership_tier_id, membership_plan, monthly_fee, admission_fee, notes)
 VALUES
-  (2, 'MEM001', '12345-1234567-1', '123 Main Street, Karachi', '2024-01-15', 'Standard', 3000.00, 1000.00, 'Gold Member'),
-  (3, 'MEM002', '12346-1234568-2', '456 Park Avenue, Karachi', '2024-02-20', 'Premium', 5000.00, 1500.00, 'Premium Member'),
-  (4, 'MEM003', '12347-1234569-3', '789 Ocean Lane, Karachi', '2024-03-10', 'Standard', 3000.00, 1000.00, 'Regular Member');
+  (2, 'MEM001', '12345-1234567-1', '123 Main Street, Karachi', '2024-01-15', 2, 'Adults', 1500.00, 1000.00, 'Gold Member'),
+  (3, 'MEM002', '12346-1234568-2', '456 Park Avenue, Karachi', '2024-02-20', 3, 'Seniors', 1500.00, 1500.00, 'Premium Member'),
+  (4, 'MEM003', '12347-1234569-3', '789 Ocean Lane, Karachi', '2024-03-10', 1, 'Kids', 500.00, 500.00, 'Regular Member');
 
 -- Insert Sample Announcements
 INSERT INTO announcements (admin_id, title, description, published_date, is_active)

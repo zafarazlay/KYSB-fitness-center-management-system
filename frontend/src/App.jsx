@@ -4,6 +4,7 @@ import { useAuth } from './hooks/useAuth.js';
 
 // Pages
 import LoginPage from './pages/LoginPage.jsx';
+import RegisterPage from './pages/RegisterPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
@@ -35,6 +36,7 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
         {/* Member Routes */}
         <Route

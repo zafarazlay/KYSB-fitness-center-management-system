@@ -21,9 +21,10 @@ const LoginPage = () => {
       await login(email, password);
       navigate('/dashboard');
     } catch (error) {
-      if (error.response?.data?.errors) {
-        setErrors(error.response.data.errors);
-      }
+      console.error('Login error:', error);
+      setErrors({
+        submit: error.response?.data?.message || error.message || 'Login failed',
+      });
     }
   };
 
@@ -37,6 +38,11 @@ const LoginPage = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {errors.submit && (
+              <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+                {errors.submit}
+              </div>
+            )}
             <Input
               label="Email"
               type="email"
