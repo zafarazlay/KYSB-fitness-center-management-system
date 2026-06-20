@@ -1,48 +1,87 @@
-# KYSB Fitness Center Management System
+# AKYSB Fitness Center Management System
 
-A complete, production-grade full-stack gym management system built with React, Supabase, and modern web technologies.
+<div align="center">
 
-**Status:** ✅ Phase 2 Complete - Advanced Features Implemented
+![AKYSB Logo](https://img.shields.io/badge/AKYSB-Fitness%20Management-blue?style=for-the-badge)
+![React](https://img.shields.io/badge/React-18.2-blue?style=flat-square)
+![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat-square)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-blue?style=flat-square)
+![Docker](https://img.shields.io/badge/Docker-Supported-blue?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-## Features
+A comprehensive, production-grade fitness center management system built with React.js, Node.js/Express, and PostgreSQL.
 
-### ✅ Core Features
-- **Member Management** - Create, edit, delete, and manage gym members
-- **Controlled Registration** - Admin-only member account creation via Supabase Auth
-- **Payment System** - Record and approve member payments with workflow
-- **Financial Tracking** - Complete transaction and ledger system
-- **Real-time Dashboard** - Live metrics without page refresh
-- **Announcements** - Post and manage gym announcements
-- **Email Notifications** - Automated reminders and notifications
+**Status:** ✅ Phase 2 Complete - Membership Tiers & Core Features Implemented
 
-### ✅ Advanced Features (Phase 2)
-- **Excel Import/Export** - Bulk import members and transactions from Excel/CSV
-- **Data Validation** - Intelligent validation with detailed error reporting
-- **System Settings** - Configure everything without code changes
-- **Automated Backups** - Daily, weekly, and monthly backups
-- **Advanced Search** - Search and filter by any field
-- **Late Fee Management** - Automatic late fee calculation
-- **Audit Logging** - Complete audit trail of all changes
-- **Role-Based Access** - Admin and member roles with proper access control
+[Features](#features) • [Quick Start](#quick-start) • [Deployment](#deployment) • [API Docs](#api-documentation)
 
-## Tech Stack
+</div>
 
-### Frontend
-- **React** 18.2.0 - UI library
-- **Vite** 5.0.0 - Build tool
-- **Tailwind CSS** 3.3.6 - Styling
-- **Zustand** 4.4.1 - State management
-- **React Router** v6 - Client-side routing
-- **Supabase JS Client** - Backend integration
-- **XLSX & Papa Parse** - Excel/CSV handling
+---
 
-### Backend
-- **Supabase** - Complete backend as a service
-  - PostgreSQL database
-  - User authentication
-  - Real-time subscriptions
-  - File storage
-  - Row Level Security (RLS)
+## 📋 Quick Links
+
+- 🔗 **Repository**: https://github.com/zafarazlay/KYSB-fitness-center-management-system
+- 📖 **Documentation**: See `/docs` folder
+- 🚀 **Live Demo**: http://localhost:3000 (Local)
+- 📚 **API**: http://localhost:5000/api (Local)
+
+## 🎯 Overview
+
+**AKYSB Fitness Center Management System** is a full-featured web application designed to manage gym operations, member information, payments, and financial records. It provides separate interfaces for administrators and members with real-time updates and comprehensive reporting.
+
+## ✨ Features
+
+### 🔐 Core Features
+- ✅ Email/password authentication with JWT tokens
+- ✅ Role-based access control (Admin, Member)
+- ✅ Member profile creation and management
+- ✅ CNIC verification
+- ✅ Member search and filtering
+- ✅ Member status tracking
+
+### 💳 Membership Tiers System
+The system supports multiple membership categories with different pricing:
+
+| Tier | Gym Access | Indoor Games | Monthly Fee |
+|------|-----------|--------------|-------------|
+| **Kids** | ❌ | ✅ | PKR 500 |
+| **Adults** | ✅ (1000) | ✅ (500) | PKR 1,500 |
+| **Seniors** | ✅ (1000) | ✅ (500) | PKR 1,500 |
+| **Custom** | Flexible | Flexible | Custom |
+
+### 💰 Payment System
+- Payment recording (cash, bank transfer, easypaisa, jazzcash, online)
+- Payment approval workflow
+- Automatic late fee calculation
+- Payment status tracking
+- Receipt generation (PDF)
+- Payment reminders
+- Excel import/export
+
+### 📊 Financial Management
+- Transaction tracking (credits/debits)
+- Expense management
+- Member ledger system
+- Financial reports and analytics
+- Revenue tracking
+- Outstanding balance monitoring
+- Automated late fee calculation
+
+### 📢 Communication
+- Announcement system
+- Email notifications
+- Payment reminders
+- System alerts
+
+### 🔧 Admin Features
+- Dashboard with analytics
+- Member management interface
+- Payment approval interface
+- Data import/export (Excel, CSV)
+- System settings configuration
+- Backup management
+- Audit logging
 
 ## Project Structure
 
