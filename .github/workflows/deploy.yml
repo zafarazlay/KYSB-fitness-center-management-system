@@ -31,8 +31,17 @@ jobs:
     - name: Build frontend
       run: npm run build --prefix frontend
 
+    - name: Configure git for deployment
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./frontend/dist
+      run: |
+        cd frontend/dist
+        git init
+        git add -A
+        git commit -m "Deploy: $(date)"
+        git branch -M gh-pages
+        git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/zafarazlay/KYSB-fitness-center-management-system.git
+        git push -u origin gh-pages --force
