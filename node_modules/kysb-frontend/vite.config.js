@@ -2,6 +2,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default {
+  base: '/KYSB-fitness-center-management-system/',
   plugins: [react()],
   resolve: {
     alias: {
